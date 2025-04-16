@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="flex items-center justify-center">
+        <div class="w-full max-w-md bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">{{ title }}</h2>
+            <form method="post" class="space-y-4">
+                {{ form.csrf_token }}
+                <div>
+                    <label for="{{ form.email.id_for }}" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                    {{ form.email(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                    {% if form.email.errors %}
+                        <ul class="text-red-500">
+                            {% for error in form.email.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.password.id_for }}" class="block text-gray-700 text-sm font-bold mb-2">Пароль:</label>
+                    {{ form.password(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                    {% if form.password.errors %}
+                        <ul class="text-red-500">
+                            {% for error in form.password.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                {% if form.remember %}
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        {{ form.remember(class="mr-2 leading-tight") }}
+                        <span class="text-sm text-gray-700">
+                            Запомнить меня
+                        </span>
+                    </label>
+                </div>
+                {% endif %}
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
+                    {{ title }}
+                </button>
+            </form>
+            {% if title == "Войти" %}
+            <p class="text-center text-gray-500 text-xs">
+                Нет аккаунта? <a class="text-blue-500 hover:text-blue-700" href="{{ url_for('main.register') }}">Зарегистрироваться</a>
+            </p>
+            {% else %}
+            <p class="text-center text-gray-500 text-xs">
+                Уже есть аккаунт? <a class="text-blue-500 hover:text-blue-700" href="{{ url_for('main.login') }}">Войти</a>
+            </p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

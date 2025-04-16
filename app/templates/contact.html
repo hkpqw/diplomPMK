@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Контакты</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Контактная информация</h2>
+            <p class="text-gray-700 mb-2">
+                <strong>Адрес:</strong> Минская обл., г. Молодечно, ул. Лебедевская 6
+            </p>
+            <p class="text-gray-700 mb-2">
+                <strong>Телефон:</strong> +375  29 33-11-212
+            </p>
+            <p class="text-gray-700 mb-2">
+                <strong>Факс:</strong> +375 0176 53 58 74
+            </p>
+            <p class="text-gray-700 mb-2">
+                <strong>Email:</strong> oaopmk212@mail.ru
+            </p>
+            <div class="h-96 rounded-lg">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2328.0968270492153!2d26.81538527697959!3d54.302238502773584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dc747c47cc7a9b%3A0x89dda5ccee41eb5e!2z0YPQuy4g0JvQtdCx0LXQtNC10LLRgdC60LDRjyA2LCDQnNC-0LvQvtC00LXRh9C90L4sINCc0LjQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCDQkdC10LvQsNGA0YPRgdGM!5e0!3m2!1sru!2snl!4v1744744472169!5m2!1sru!2snl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Форма обратной связи</h2>
+            <form method="post" class="space-y-4">
+                {{ form.csrf_token }}
+                <div>
+                    <label for="{{ form.name.id_for }}" class="block text-gray-700 text-sm font-bold mb-2">ФИО:</label>
+                    {{ form.name(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                    {% if form.name.errors %}
+                        <ul class="text-red-500">
+                            {% for error in form.name.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.phone.id_for }}" class="block text-gray-700 text-sm font-bold mb-2">Телефон:</label>
+                    {{ form.phone(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                    {% if form.phone.errors %}
+                        <ul class="text-red-500">
+                            {% for error in form.phone.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.email.id_for }}" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                    {{ form.email(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                    {% if form.email.errors %}
+                        <ul class="text-red-500">
+                            {% for error in form.email.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.message.id_for }}" class="block text-gray-700 text-sm font-bold mb-2">Сообщение:</label>
+                    {{ form.message(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32") }}
+                    {% if form.message.errors %}
+                        <ul class="text-red-500">
+                            {% for error in form.message.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Отправить сообщение
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

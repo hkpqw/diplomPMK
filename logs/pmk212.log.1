@@ -1,0 +1,131 @@
+2025-04-15 21:24:46,362 ERROR: Exception on /login [POST] [in /home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/validators.py", line 401, in __call__
+    import email_validator
+ModuleNotFoundError: No module named 'email_validator'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/app/routes.py", line 86, in login
+    if form.validate_on_submit():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask_wtf/form.py", line 86, in validate_on_submit
+    return self.is_submitted() and self.validate(extra_validators=extra_validators)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/form.py", line 330, in validate
+    return super().validate(extra)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/form.py", line 147, in validate
+    if not field.validate(self, extra):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/fields/core.py", line 234, in validate
+    stop_validation = self._run_validation_chain(form, chain)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/fields/core.py", line 254, in _run_validation_chain
+    validator(form, self)
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/validators.py", line 403, in __call__
+    raise Exception(
+Exception: Install 'email_validator' for email validation support.
+2025-04-15 21:24:51,876 ERROR: Exception on /login [POST] [in /home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/validators.py", line 401, in __call__
+    import email_validator
+ModuleNotFoundError: No module named 'email_validator'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/app/routes.py", line 86, in login
+    if form.validate_on_submit():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask_wtf/form.py", line 86, in validate_on_submit
+    return self.is_submitted() and self.validate(extra_validators=extra_validators)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/form.py", line 330, in validate
+    return super().validate(extra)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/form.py", line 147, in validate
+    if not field.validate(self, extra):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/fields/core.py", line 234, in validate
+    stop_validation = self._run_validation_chain(form, chain)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/fields/core.py", line 254, in _run_validation_chain
+    validator(form, self)
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/validators.py", line 403, in __call__
+    raise Exception(
+Exception: Install 'email_validator' for email validation support.
+2025-04-15 21:24:57,226 ERROR: Exception on /login [POST] [in /home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/validators.py", line 401, in __call__
+    import email_validator
+ModuleNotFoundError: No module named 'email_validator'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/app/routes.py", line 86, in login
+    if form.validate_on_submit():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/flask_wtf/form.py", line 86, in validate_on_submit
+    return self.is_submitted() and self.validate(extra_validators=extra_validators)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/form.py", line 330, in validate
+    return super().validate(extra)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/form.py", line 147, in validate
+    if not field.validate(self, extra):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/fields/core.py", line 234, in validate
+    stop_validation = self._run_validation_chain(form, chain)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/fields/core.py", line 254, in _run_validation_chain
+    validator(form, self)
+  File "/home/hkpqw/Рабочий стол/diplomPMK/venv/lib/python3.12/site-packages/wtforms/validators.py", line 403, in __call__
+    raise Exception(
+Exception: Install 'email_validator' for email validation support.
+2025-04-15 21:25:24,367 INFO: PMK212 startup [in /home/hkpqw/Рабочий стол/diplomPMK/app/__init__.py:46]
+2025-04-15 21:30:57,057 INFO: PMK212 startup [in /home/hkpqw/Рабочий стол/diplomPMK/app/__init__.py:46]
+2025-04-15 21:40:27,304 INFO: PMK212 startup [in /home/hkpqw/Рабочий стол/diplomPMK/app/__init__.py:46]
+2025-04-15 21:40:34,841 INFO: PMK212 startup [in /home/hkpqw/Рабочий стол/diplomPMK/app/__init__.py:46]
+2025-04-15 21:40:41,999 INFO: PMK212 startup [in /home/hkpqw/Рабочий стол/diplomPMK/app/__init__.py:46]
+2025-04-15 21:40:44,435 INFO: PMK212 startup [in /home/hkpqw/Рабочий стол/diplomPMK/app/__init__.py:46]
+2025-04-15 22:01:45,149 INFO: PMK212 startup [in /home/hkpqw/Рабочий стол/diplomPMK/app/__init__.py:46]
+2025-04-15 22:07:34,456 INFO: PMK212 startup [in /home/hkpqw/Рабочий стол/diplomPMK/app/__init__.py:46]

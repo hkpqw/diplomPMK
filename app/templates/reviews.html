@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Отзывы{% endblock %}
+
+{% block content %}
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Отзывы клиентов</h1>
+
+    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Оставить отзыв</h2>
+    <form method="post" class="space-y-4">
+        {{ form.csrf_token }}
+        <div>
+            <label for="{{ form.name.id_for }}" class="block text-gray-700 text-sm font-bold mb-2">Ваше имя:</label>
+            {{ form.name(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+            {% if form.name.errors %}
+                <ul class="text-red-500">
+                    {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div>
+            <label for="{{ form.text.id_for }}" class="block text-gray-700 text-sm font-bold mb-2">Ваш отзыв:</label>
+            {{ form.text(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32") }}
+            {% if form.text.errors %}
+                <ul class="text-red-500">
+                    {% for error in form.text.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div>
+            <label for="{{ form.rating.id_for }}" class="block text-gray-700 text-sm font-bold mb-2">Оценка (1-5):</label>
+            {{ form.rating(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+            {% if form.rating.errors %}
+                <ul class="text-red-500">
+                    {% for error in form.rating.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Отправить отзыв
+        </button>
+    </form>
+
+    <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Все отзывы</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for review in reviews %}
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ review.name }}</h3>
+                <p class="text-gray-600">{{ review.text }}</p>
+                <div class="flex items-center mt-2">
+                    {% for i in range(review.rating) %}
+                        <svg class="w-4 h-4 fill-current text-yellow-500" viewBox="0 0 20 20"><path d="M10 14.586L3.28 18.123l1.35-7.583L.382 5.943l7.618-.61L10 0l2.001 5.333 7.618.61-4.248 4.597 1.35 7.583z"/></svg>
+                    {% endfor %}
+                </div>
+                <p class="text-gray-500 text-sm mt-2">
+                    {{ review.date_posted.strftime('%d %B %Y') }}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

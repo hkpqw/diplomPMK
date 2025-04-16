@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <section class="py-12">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Добро пожаловать на сайт ПМК-212</h1>
+        <p class="text-gray-700 leading-relaxed">
+            Мы предлагаем широкий спектр услуг по аренде техники и оборудования для строительства и ремонта.
+            Ознакомьтесь с нашими услугами и оставьте заявку прямо сейчас!
+        </p>
+        <a href="{{ url_for('main.services') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6">
+            Наши услуги
+        </a>
+    </section>
+
+    <section class="py-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Последние новости</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for news_item in news %}
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ news_item.title }}</h3>
+                    <p class="text-gray-600">{{ news_item.content[:100] }}...</p>
+                    <a href="#" class="text-blue-500 hover:text-blue-700">Подробнее</a>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{{ url_for('main.news_list') }}" class="inline-block text-blue-500 hover:text-blue-700 mt-4">Все новости</a>
+    </section>
+
+    <section class="py-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Отзывы клиентов</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for review in reviews %}
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ review.name }}</h3>
+                    <p class="text-gray-600">{{ review.text }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{{ url_for('main.reviews') }}" class="inline-block text-blue-500 hover:text-blue-700 mt-4">Все отзывы</a>
+    </section>
+{% endblock %}
