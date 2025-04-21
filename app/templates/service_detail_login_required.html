@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ service.name }}{% endblock %}
+
+{% block content %}
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        {% if service.image_filename %}
+            <img src="{{ url_for('static', filename='uploads/' + service.image_filename) }}" alt="{{ service.name }}" class="w-full h-96 object-contain">
+        {% else %}
+            {% if service.image_url %}
+                <img src="{{ service.image_url }}" alt="{{ service.name }}" class="w-full h-96 object-contain">
+            {% endif %}
+        {% endif %}
+        <div class="p-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ service.name }}</h1>
+            <p class="text-gray-700 leading-relaxed mb-6">{{ service.description }}</p>
+            <p class="text-gray-700 font-bold text-lg">Цена: {{ service.price }} руб</p>
+
+            <p class="text-center text-lg text-gray-700 mt-8">
+                Чтобы оставить заявку, пожалуйста, <a href="{{ url_for('main.login') }}" class="text-blue-500 hover:text-blue-700">авторизуйтесь</a> или <a href="{{ url_for('main.register') }}" class="text-blue-500 hover:text-blue-700">зарегистрируйтесь</a>.
+            </p>
+        </div>
+    </div>
+{% endblock %}

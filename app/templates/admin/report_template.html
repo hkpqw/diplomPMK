@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет по заявкам</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif; /* Use Times New Roman */
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        h1 {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .signature {
+            margin-top: 50px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Отчет по заявкам за период с {{ start_date.strftime('%d.%m.%Y') }} по {{ end_date.strftime('%d.%m.%Y') }}</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID заявки</th>
+                <th>От кого</th>
+                <th>Email</th>
+                <th>Услуга</th>
+                <th>Сообщение</th>
+                <th>Дата</th>
+                <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in report_data %}
+            <tr>
+                <td>{{ item.index }}</td>
+                <td>{{ item.app_id }}</td>
+                <td>{{ item.user_full_name }}</td>
+                <td>{{item.user_email}}</td>
+                <td>{{ item.service_name }} ({{ item.service_price }} руб)</td>
+                <td>{{ item.message }}</td>
+                <td>{{ item.timestamp }}</td>
+                <td>{{ item.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="signature">
+        Васильков О. В.            Директор            _______________ (подпись)
+    </div>
+</body>
+</html>

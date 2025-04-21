@@ -16,22 +16,27 @@ def index():
 @bp.route('/services')
 def services():
     services = Service.query.all()
-    return render_template('services.html', services=services)
+    service_counts = {}
+    for service in services:
+        service_counts[service.id] = Application.query.filter_by(service_id=service.id).count()
+    return render_template('services.html', services=services, service_counts=service_counts)
 
 @bp.route('/service/<int:service_id>', methods=['GET', 'POST'])
-@login_required
 def service_detail(service_id):
     service = Service.query.get_or_404(service_id)
     form = ApplicationForm()
-    if form.validate_on_submit():
-        application = Application(message=form.message.data,
-                                  service=service, author=current_user) # Добавляем связь с пользователем
-        db.session.add(application)
-        db.session.commit()
-        flash('Ваша заявка успешно отправлена!', 'success')
-        return redirect(url_for('main.index'))  # Перенаправление на главную
 
-    return render_template('service_detail.html', service=service, form=form)
+    if current_user.is_authenticated:
+        if form.validate_on_submit():
+            application = Application(message=form.message.data, service=service, author=current_user)
+            db.session.add(application)
+            db.session.commit()
+            flash('Ваша заявка успешно отправлена!', 'success')
+            return redirect(url_for('main.index'))
+
+        return render_template('service_detail.html', service=service, form=form)
+    else:
+        return render_template('service_detail_login_required.html', service=service)
 
 @bp.route('/profile')
 @login_required
@@ -41,9 +46,9 @@ def profile():
 
 @bp.route('/contact', methods=['GET', 'POST'])
 def contact():
-    form = ApplicationForm() #  Можно использовать ту же форму
+    form = ApplicationForm()
     if form.validate_on_submit():
-        application = Application(message=form.message.data, author=current_user) # Добавляем связь с пользователем # Без service
+        application = Application(message=form.message.data, author=current_user)
         db.session.add(application)
         db.session.commit()
         flash('Ваше сообщение отправлено!', 'success')
@@ -76,7 +81,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data,
-                    full_name=form.full_name.data, phone_number=form.phone_number.data) # Сохраняем ФИО и номер телефона
+                    full_name=form.full_name.data, phone_number=form.phone_number.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()

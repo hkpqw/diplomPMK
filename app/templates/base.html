@@ -8,6 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        function toggleMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+    </script>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -20,7 +25,18 @@
         <nav class="container mx-auto py-4 px-6">
             <div class="flex items-center justify-between">
                 <a href="{{ url_for('main.index') }}" class="text-2xl font-bold text-gray-800">ПМК-212</a>
-                <div class="flex items-center space-x-4">
+
+                <!-- Hamburger menu button (visible on small screens) -->
+                <div class="md:hidden">
+                    <button onclick="toggleMenu()" class="text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-800">
+                        <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M4 5h16a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1zm0 6h16a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2a1 1 0 011-1zm0 6h16a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2a1 1 0 011-1z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Navigation links (hidden on small screens, visible on medium screens and up) -->
+                <div class="hidden md:flex items-center space-x-4">
                     <a href="{{ url_for('main.index') }}" class="text-gray-600 hover:text-gray-800">Главная</a>
                     <a href="{{ url_for('main.services') }}" class="text-gray-600 hover:text-gray-800">Услуги</a>
                     <a href="{{ url_for('main.news_list') }}" class="text-gray-600 hover:text-gray-800">Новости</a>
@@ -35,6 +51,27 @@
                     {% else %}
                         <a href="{{ url_for('main.login') }}" class="text-gray-600 hover:text-gray-800">Войти</a>
                         <a href="{{ url_for('main.register') }}" class="text-gray-600 hover:text-gray-800">Регистрация</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Mobile menu (hidden by default) -->
+            <div class="md:hidden hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="{{ url_for('main.index') }}" class="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium">Главная</a>
+                    <a href="{{ url_for('main.services') }}" class="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium">Услуги</a>
+                    <a href="{{ url_for('main.news_list') }}" class="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium">Новости</a>
+                    <a href="{{ url_for('main.reviews') }}" class="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium">Отзывы</a>
+                    <a href="{{ url_for('main.contact') }}" class="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium">Контакты</a>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('main.profile') }}" class="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium">Личный кабинет</a>
+                        <a href="{{ url_for('main.logout') }}" class="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium">Выйти</a>
+                         {% if current_user.username == 'admin' %}
+                         <a href="{{ url_for('admin.dashboard') }}" class="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium">Панель администратора</a>
+                         {% endif %}
+                    {% else %}
+                        <a href="{{ url_for('main.login') }}" class="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium">Войти</a>
+                        <a href="{{ url_for('main.register') }}" class="text-gray-600 hover:text-gray-800 block px-3 py-2 rounded-md text-base font-medium">Регистрация</a>
                     {% endif %}
                 </div>
             </div>
