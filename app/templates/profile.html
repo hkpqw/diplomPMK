@@ -43,7 +43,15 @@
                                 {% endif %}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ application.status }}
+                                {% if application.status == 'new' %}
+                                    Новая
+                                {% elif application.status == 'in_progress' %}
+                                    В процессе
+                                {% elif application.status == 'completed' %}
+                                    Завершена
+                                {% else %}
+                                    {{ application.status }}
+                                {% endif %}
                             </td>
                              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ application.message }}

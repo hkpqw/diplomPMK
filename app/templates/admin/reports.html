@@ -6,21 +6,22 @@
 {% block content %}
     <h2 class="text-xl font-semibold text-gray-700 mb-4">Сформировать отчет по заявкам</h2>
     <form method="post" class="space-y-4">
+        <input type="hidden" name="form_action" value="generate">
         <div>
             <label for="start_date" class="block text-gray-700 text-sm font-bold mb-2">Начальная дата:</label>
-            <input type="date" id="start_date" name="start_date" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type="date" id="start_date" name="start_date" required value="{{ start_date }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <div>
             <label for="end_date" class="block text-gray-700 text-sm font-bold mb-2">Конечная дата:</label>
-            <input type="date" id="end_date" name="end_date" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type="date" id="end_date" name="end_date" required value="{{ end_date }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Сформировать отчет
         </button>
 
         {% if report_data %}
-           <h2 class="text-lg font-semibold text-gray-700 mt-8 mb-4">Предварительный просмотр отчета</h2>
-           <div class="overflow-x-auto">
+            <h2 class="text-lg font-semibold text-gray-700 mt-8 mb-4">Отчет за период с {{ start_date }} по {{ end_date }}</h2>
+            <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -44,15 +45,24 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ item.service_name }} ({{ item.service_price }} руб)</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ item.message }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ item.timestamp }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ item.status }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {% if item.status == 'new' %}
+                                        Новая
+                                    {% elif item.status == 'in_progress' %}
+                                        В процессе
+                                    {% elif item.status == 'completed' %}
+                                        Завершена
+                                    {% else %}
+                                        {{ item.status }}
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
 
-            <input type="hidden" name="action" value="download"> <!-- Add a hidden input for the download action -->
-            <button type="submit" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button type="submit" name="action" value="download" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Скачать отчет PDF
             </button>
 

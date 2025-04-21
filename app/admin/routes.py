@@ -159,27 +159,32 @@ def delete_news(news_id):
 def reports():
     report_data = None
     start_date = None
-    end_date = None  # Initialize end_date
+    end_date = None
 
     if request.method == 'POST':
+        # Check if current month is selected
         if request.form.get('current_month'):
             now = datetime.now()
             start_date = date(now.year, now.month, 1)
-            end_date = date(now.year, now.month, now.day)  # Correct end date for current month
+            end_date = date(now.year, now.month, now.day)
         else:
             start_date_str = request.form.get('start_date')
             end_date_str = request.form.get('end_date')
 
             try:
-                start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date() if start_date_str else None
-                end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date() if end_date_str else None
+                if start_date_str and end_date_str:
+                    start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
+                    end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date()
+                else:
+                    flash('Необходимо указать начальную и конечную даты.', 'danger')
+                    return render_template('admin/reports.html', report_data=report_data, start_date=start_date, end_date=end_date)
             except ValueError:
                 flash('Неверный формат даты. Используйте YYYY-MM-DD.', 'danger')
-                return render_template('admin/reports.html', report_data=report_data)
+                return render_template('admin/reports.html', report_data=report_data, start_date=start_date, end_date=end_date)
 
-            if not start_date or not end_date:
+        if not start_date or not end_date:  # Added check for None after processing dates
                 flash('Необходимо указать начальную и конечную даты.', 'danger')
-                return render_template('admin/reports.html', report_data=report_data)
+                return render_template('admin/reports.html', report_data=report_data, start_date=start_date, end_date=end_date)
 
         applications = Application.query.filter(Application.timestamp.between(start_date, end_date)).all()
 
@@ -200,7 +205,7 @@ def reports():
                 'timestamp': app.timestamp.strftime('%d.%m.%Y %H:%M'),
                 'status': app.status
             })
-
+        
         if request.form.get('action') == 'download':  # Check if the download button was clicked
             buffer = BytesIO()
             c = canvas.Canvas(buffer, pagesize=letter)  # Create a canvas
@@ -224,7 +229,17 @@ def reports():
                 y -= 0.25 * inch
                 c.drawString(1.2 * inch, y, f"Сообщение: {item['message'][:100]}...") # Truncate for brevity
                 y -= 0.25 * inch
-                c.drawString(1.2 * inch, y, f"Дата: {item['timestamp']}, Статус: {item['status']}")
+                status_text = ""
+                if item['status'] == 'new':
+                    status_text = "Новая"
+                elif item['status'] == 'in_progress':
+                    status_text = "В процессе"
+                elif item['status'] == 'completed':
+                    status_text = "Завершена"
+                else:
+                    status_text = item['status']  # Default to original value
+
+                c.drawString(1.2 * inch, y, f"Дата: {item['timestamp']}, Статус: {status_text}")
                 y -= 0.5 * inch  # Space between entries
 
                 if y < inch: # New page if needed
@@ -247,7 +262,7 @@ def reports():
                 download_name=f"report_applications_{start_date.strftime('%Y%m%d')}_{end_date.strftime('%Y%m%d')}.pdf",
                 mimetype='application/pdf'
             )
-
+            
         return render_template('admin/reports.html', report_data=report_data, start_date=start_date, end_date=end_date)  # Pass dates
     else:
         return render_template('admin/reports.html', report_data=None, start_date=None, end_date=None)  # Pass dates even when no report generated

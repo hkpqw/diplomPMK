@@ -50,7 +50,15 @@
                             {% endif %}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ application.status }}
+                            {% if application.status == 'new' %}
+                                Новая
+                            {% elif application.status == 'in_progress' %}
+                                В процессе
+                            {% elif application.status == 'completed' %}
+                                Завершена
+                            {% else %}
+                                {{ application.status }}  {# Handle unexpected statuses #}
+                            {% endif %}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <a href="#" onclick="toggleApplication({{ application.id }})" class="text-blue-500 hover:text-blue-900">Подробнее</a>
@@ -68,7 +76,7 @@
                                         <a href="{{ url_for('admin.update_application_status', application_id=application.id, new_status='new') }}" class="text-gray-500 hover:text-gray-900 ml-2">Новая</a>
                                     {% endif %}
                                     {% if application.status != 'in_progress' %}
-                                        <a href="{{ url_for('admin.update_application_status', application_id=application.id, new_status='in_progress') }}" class="text-blue-500 hover:text-blue-900 ml-2">В работе</a>
+                                        <a href="{{ url_for('admin.update_application_status', application_id=application.id, new_status='in_progress') }}" class="text-blue-500 hover:text-blue-900 ml-2">В процессе</a>
                                     {% endif %}
                                     {% if application.status != 'completed' %}
                                         <a href="{{ url_for('admin.update_application_status', application_id=application.id, new_status='completed') }}" class="text-green-500 hover:text-green-900 ml-2">Завершена</a>
